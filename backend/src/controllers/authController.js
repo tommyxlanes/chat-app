@@ -1,6 +1,7 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken.js";
+import { sendWelcomeEmail } from "../utils/sendWelcomeEmail.js";
 
 export const signUpController = async (req, res) => {
   try {
@@ -33,6 +34,8 @@ export const signUpController = async (req, res) => {
     // Send JWT in cookie
     generateToken(res, user._id, user.email);
 
+    await sendWelcomeEmail(user.email, user.fullname);
+
     res.status(201).json({
       success: true,
       message: "User registered successfully",
@@ -43,7 +46,7 @@ export const signUpController = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Signup error:", error.message);
+    console.error("❌ Signup error:", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 };
