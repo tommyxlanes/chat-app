@@ -1,10 +1,10 @@
+import { ENV } from "../lib/env.js";
 import { resend } from "./resendClient.js";
-import "dotenv/config";
 
 export const sendWelcomeEmail = async (to, name) => {
-  const from = process.env.EMAIL_FROM || "noreply@emails.teevong.com";
-  const siteUrl = process.env.CLIENT_URL || "https://sevalla.com";
-  const appName = process.env.APP_NAME || "Sevalla";
+  const from = ENV.EMAIL_FROM || "noreply@emails.teevong.com";
+  const siteUrl = ENV.CLIENT_URL || "https://sevalla.com";
+  const appName = ENV.APP_NAME || "Sevalla";
 
   const html = `
     <div style="font-family:Arial,sans-serif;background:#f8fafc;padding:40px 0;">

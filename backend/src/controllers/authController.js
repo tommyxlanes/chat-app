@@ -34,7 +34,12 @@ export const signUpController = async (req, res) => {
     // Send JWT in cookie
     generateToken(res, user._id, user.email);
 
-    await sendWelcomeEmail(user.email, user.fullname);
+    // Attempt to send welcome email (non-blocking)
+    try {
+      await sendWelcomeEmail(user.email, user.fullname);
+    } catch (error) {
+      console.log("Failed to send welcome email");
+    }
 
     res.status(201).json({
       success: true,

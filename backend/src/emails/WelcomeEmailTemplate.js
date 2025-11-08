@@ -1,10 +1,11 @@
 import { Resend } from "resend";
+import { ENV } from "../lib/env.js";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(ENV.RESEND_API_KEY);
 
 export const sendWelcomeEmail = async (to, name) => {
-  const from = process.env.EMAIL_FROM || "noreply@emails.teevong.com";
-  const siteUrl = process.env.CLIENT_URL || "https://sevalla.com"; // fallback
+  const from = ENV.EMAIL_FROM || "noreply@emails.teevong.com";
+  const siteUrl = ENV.CLIENT_URL || "https://sevalla.com"; // fallback
   const subject = "Welcome to ChatSome";
 
   const html = `
